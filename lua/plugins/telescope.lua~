@@ -1,0 +1,64 @@
+return {
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
+            -- "nvim-tree/nvim-web-devicons",
+        },
+
+        opts = function(_, opts)
+            local telescope = require("telescope")
+            local themes = require("telescope.themes")
+            local actions = require("telescope.actions")
+
+            local ivy_opts = themes.get_ivy({
+                layout_config = {
+                    height = 0.15,        -- smaller height (15% of window)
+                    prompt_position = "bottom",
+                },
+                sorting_strategy = "ascending",
+                border = false,
+                previewer = false,
+                results_title = false,
+                prompt_title = false,
+                winblend = 0,
+                prompt_prefix = "",      -- default, overridden per picker
+                selection_caret = "  ",  -- optional: can be removed
+                color_devicons = false,
+                path_display = { "smart" },
+                mappings = {
+                    i = {
+                        ["<esc>"] = actions.close,
+                        ["<C-j>"] = actions.move_selection_next,
+                        ["<C-k>"] = actions.move_selection_previous,
+                    },
+                    n = {
+                        ["q"] = actions.close,
+                    },
+                },
+            })
+
+            -- Apply Ivy + no preview to all built-in pickers
+            opts.defaults = ivy_opts
+            opts.pickers = {
+                find_files = { previewer = false, prompt_prefix = "find files: " },
+                live_grep   = { previewer = false, prompt_prefix = "live grep: " },
+                oldfiles    = { previewer = false, prompt_prefix = "old files: " },
+                buffers     = { previewer = false, prompt_prefix = "buffers: " },
+                help_tags   = { previewer = false, prompt_prefix = "help tags: " },
+            }
+
+            telescope.setup(opts)
+            telescope.load_extension("ui-select")
+
+            -- Keymaps
+            local keymap = vim.keymap.set
+            local map_opts = { noremap = true, silent = true }
+
+            keymap("n", "<C-p>", "<cmd>Telescope find_files<CR>", map_opts)
+            keymap("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", map_opts)
+            keymap("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", map_opts)
+        end,
+    },
+}
