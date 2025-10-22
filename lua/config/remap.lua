@@ -1,0 +1,20 @@
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open Netrw" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("n", "<leader>+", "<C-a>")
+vim.keymap.set("n", "<leader>-", "<C-x>")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("x", "<leader>p", '"_dP')
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>Y", '"+Y')
+vim.keymap.set("n", "<leader>sv", "<C-w>v")
+vim.keymap.set("n", "<leader>sh", "<C-w>s")
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })  -- press ESC to exit terminal mode
+vim.keymap.set('t', '<C-c>', [[<C-\><C-n>]], { noremap = true })  -- press ESC to exit terminal mode
+vim.keymap.set('t', '<C-w>h', [[<C-\><C-n><C-w>h]], { noremap = true })
+vim.keymap.set('t', '<C-w>j', [[<C-\><C-n><C-w>j]], { noremap = true })
+vim.keymap.set('t', '<C-w>k', [[<C-\><C-n><C-w>k]], { noremap = true })
+vim.keymap.set('t', '<C-w>l', [[<C-\><C-n><C-w>l]], { noremap = true })
